@@ -1,18 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 input {
+  background-position: left 20px top 50%;
+  background-repeat: no-repeat;
+  background-size: 6%;
   border: 2px solid #c39353;
-  padding: 14px 0 14px 20px;
+  padding: 14px 0 14px 50px;
   border-radius: 10px;
   background-color: #152c5e;
   color: #b6c8ef;
+  font-size: 14px;
   &::placeholder {
     color: #b6c8ef;
-    font-size: 14px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+  }
+  @media (min-width: 1000px) {
+    font-size: 18px;
   }
 }
