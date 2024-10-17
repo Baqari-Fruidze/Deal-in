@@ -46,13 +46,26 @@
 
 // export default RadioButtonGroup;
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dolarIcon from "/public/money-dollar-circle-line.svg";
 import enterpreneuerIcon from "/public/briefcase-line.svg";
 import Image from "next/image";
-const CustomRadioButtons = () => {
+import { IUser } from "@/app/types/RegisterUser";
+import { UseFormRegister, UseFormWatch } from "react-hook-form";
+const CustomRadioButtons = ({
+  register,
+}: {
+  register: UseFormRegister<IUser>;
+  watch: UseFormWatch<IUser>;
+}) => {
   const [selectedOption, setSelectedOption] = useState("");
-
+  //   const foo = () => {
+  //     setSelectedOption("investor");
+  //   };
+  //   useEffect(() => {
+  //     setSelectedOption("investor");
+  //   }, [selectedOption]);
+  console.log(selectedOption);
   return (
     <div className="flex items-center justify-between">
       {/* Entrepreneur Option */}
@@ -96,6 +109,11 @@ const CustomRadioButtons = () => {
           className="hidden"
           checked={selectedOption === "investor"}
           onChange={() => setSelectedOption("investor")}
+          //   {...register("role", {
+          //     onChange: () => {
+          //       setSelectedOption("investor"); // Update state for selected option
+          //     },
+          //   })}
         />
         <span
           className={`w-5 h-5 rounded-full border-2 border-[#C29252] mr-2 ${

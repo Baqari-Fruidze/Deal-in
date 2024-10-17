@@ -1,9 +1,12 @@
+import { IUser } from "@/app/types/RegisterUser";
 import { useState } from "react";
-
-export default function YearSelect() {
+import { UseFormRegister } from "react-hook-form";
+export default function YearSelect({
+  register,
+}: {
+  register: UseFormRegister<IUser>;
+}) {
   const [selectedYear, setSelectedYear] = useState("");
-
-  // Generate an array of years from the current year to 1900
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const years = [];
@@ -28,7 +31,12 @@ export default function YearSelect() {
       <select
         className="w-full bg-[#0a2e56] text-[#B6C8EF] text-center border-2 border-[#d9a34a] rounded-lg py-2 pl-8 pr-6 appearance-none"
         value={selectedYear}
-        onChange={handleChange}
+        {...register("year", {
+          onChange: (e) => {
+            handleChange(e); // Your custom handler logic
+            e.target.value = e.target.value; // Ensure the value is correctly passed to react-hook-form
+          },
+        })}
       >
         <option value="" disabled></option>
         {generateYears().map((year) => (
