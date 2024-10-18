@@ -1,10 +1,12 @@
 import { IUser } from "@/app/types/RegisterUser";
 import { useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 export default function MonthSelect({
   register,
+  error,
 }: {
   register: UseFormRegister<IUser>;
+  error: FieldErrors<IUser>;
 }) {
   const [selectedMonth, setSelectedMonth] = useState("");
 
@@ -21,12 +23,16 @@ export default function MonthSelect({
       )}
 
       <select
-        className="w-full bg-[#0a2e56] text-[#B6C8EF] text-center border-2 border-[#d9a34a] rounded-lg py-2 pl-8 pr-4 appearance-none"
+        className={`w-full bg-[#0a2e56] text-[#B6C8EF] text-center ${
+          error.month?.message
+            ? "border-2 border-red-500"
+            : "border-2 border-[#d9a34a]"
+        } rounded-lg py-2 pl-8 pr-4 appearance-none`}
         value={selectedMonth}
         {...register("month", {
           onChange: (e) => {
-            handleChange(e); // Your custom handler logic
-            e.target.value = e.target.value; // Ensure the value is correctly passed to react-hook-form
+            handleChange(e);
+            e.target.value = e.target.value;
           },
         })}
       >

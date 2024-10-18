@@ -4,40 +4,70 @@ import show from "/public/eye-line.svg";
 import hide from "/public/eye-off-line.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ILogin } from "@/app/types/LoginUser";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginScema } from "@/scema/LoginScema";
 
 export default function Page() {
-  const [changeType, setChangeType] = useState(true);
+  const [type, setType] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILogin>({ resolver: yupResolver(LoginScema) });
+  console.log(errors);
+  const inputsData: SubmitHandler<ILogin> = (data) => console.log(data);
   return (
-    <div className="bg-[#C7D9FF] w-full min-h-screen ">
+    <div className="bg-[#C7D9FF] w-full min-h-screen flex justify-center items-center">
       <div className="bg-[#152C5E] flex flex-col items-center gap-[50px] max-w-[570px] mx-[auto] my-[0] py-[50px] px-[24px]">
         <h1 className="text-[36px] text-[#F1F5FF] font-[600]">Log In</h1>
-        <form className="max-w-[362px] w-full flex flex-col gap-[50px]">
-          <div className="w-full flex flex-col gap-[25px]">
-            <input
-              type="text"
-              className="w-full"
-              placeholder="username"
-              style={{
-                backgroundImage: `url("/user-line.svg")`,
-              }}
-            />
+        <form
+          className="max-w-[362px] w-full flex flex-col gap-[50px]"
+          onSubmit={handleSubmit(inputsData)}
+        >
+          <div className="w-full flex flex-col gap-[35px]">
+            <div className="relative w-full">
+              <input
+                type="text"
+                className={`inputsINStart outline-none w-full ${
+                  errors.username?.message
+                    ? "border-[2px] border-red-500"
+                    : "border-[2px] border-solid border-[#c39353]"
+                }`}
+                placeholder="username"
+                style={{
+                  backgroundImage: `url("/user-line.svg")`,
+                }}
+                {...register("username")}
+              />
+              <span className="absolute text-red-500 text-[16px] top-[54px] left-3 font-medium">
+                {errors.username?.message}
+              </span>
+            </div>
+
             <div className="w-full relative">
               <input
-                type={`${changeType ? "password" : "text"}`}
-                className="w-full"
+                type={`${type ? "password" : "text"}`}
+                className={`inputsINStart w-full  outline-none ${
+                  errors.email?.message
+                    ? "border-[2px] border-red-500"
+                    : "border-[2px] border-solid border-[#c39353]"
+                }`}
                 placeholder="password"
                 style={{
                   backgroundImage: `url("/key-line.svg")`,
                 }}
+                {...register("email")}
               />
-              {changeType ? (
+              {type ? (
                 <Image
                   src={hide}
                   width={21}
                   height={18}
                   alt="icon"
                   className="absolute top-[30%] right-5"
-                  onClick={() => setChangeType(!changeType)}
+                  onClick={() => setType(!type)}
                 ></Image>
               ) : (
                 <Image
@@ -46,11 +76,15 @@ export default function Page() {
                   height={18}
                   alt="icon"
                   className="absolute top-[30%] right-5"
-                  onClick={() => setChangeType(!changeType)}
+                  onClick={() => setType(!type)}
                 ></Image>
               )}
+              <span className="absolute text-red-500 text-[16px] top-[54px] left-3 font-medium">
+                {errors.email?.message}
+              </span>
             </div>
-            <div className="flex items-center gap-[30px]">
+
+            <div className="flex items-center gap-[30px] w-full">
               <span className="text-[16px] text-[#EAEFFA] font-normal des:text-[18px]">
                 Don t have an account?
               </span>

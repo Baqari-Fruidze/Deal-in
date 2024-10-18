@@ -1,11 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-input {
+.inputsINStart {
   background-position: left 20px top 50%;
   background-repeat: no-repeat;
   background-size: 6%;
-  border: 2px solid #c39353;
+  /* border: 2px solid #c39353; */
   padding: 14px 0 14px 50px;
   border-radius: 10px;
   background-color: #152c5e;

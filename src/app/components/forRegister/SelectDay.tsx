@@ -1,15 +1,16 @@
 import { IUser } from "@/app/types/RegisterUser";
 import { useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 export default function DaySelect({
   register,
+  error,
 }: {
   register: UseFormRegister<IUser>;
+  error: FieldErrors<IUser>;
 }) {
   const [selectedDay, setSelectedDay] = useState("");
 
-  // Generate an array of days from 1 to 31
   const generateDays = () => {
     const days = [];
     for (let day = 1; day <= 31; day++) {
@@ -31,19 +32,23 @@ export default function DaySelect({
       )}
 
       <select
-        className="w-full bg-[#0a2e56] text-[#B6C8EF] text-center border-2 border-[#d9a34a] rounded-lg py-2 pl-8 pr-6 appearance-none"
+        className={`w-full bg-[#0a2e56] text-[#B6C8EF] text-center ${
+          error.day?.message
+            ? "border-2 border-red-500"
+            : "border-2 border-[#d9a34a]"
+        } rounded-lg py-2 pl-8 pr-6 appearance-none`}
         value={selectedDay}
         {...register("day", {
           onChange: (e) => {
-            handleChange(e); // Your custom handler logic
-            e.target.value = e.target.value; // Ensure the value is correctly passed to react-hook-form
+            handleChange(e);
+            e.target.value = e.target.value;
           },
         })}
       >
         <option value="" disabled></option>
         {generateDays().map((day) => (
           <option key={day} value={day}>
-            {day < 10 ? `0${day}` : day} {/* Adds leading zero for days 1-9 */}
+            {day < 10 ? `0${day}` : day}
           </option>
         ))}
       </select>

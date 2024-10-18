@@ -1,10 +1,12 @@
 import { IUser } from "@/app/types/RegisterUser";
 import { useState } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 export default function YearSelect({
   register,
+  error,
 }: {
   register: UseFormRegister<IUser>;
+  error: FieldErrors<IUser>;
 }) {
   const [selectedYear, setSelectedYear] = useState("");
   const generateYears = () => {
@@ -29,7 +31,11 @@ export default function YearSelect({
       )}
 
       <select
-        className="w-full bg-[#0a2e56] text-[#B6C8EF] text-center border-2 border-[#d9a34a] rounded-lg py-2 pl-8 pr-6 appearance-none"
+        className={`w-full bg-[#0a2e56] text-[#B6C8EF] text-center ${
+          error.year?.message
+            ? "border-2 border-red-500"
+            : "border-2 border-[#d9a34a]"
+        } rounded-lg py-2 pl-8 pr-6 appearance-none`}
         value={selectedYear}
         {...register("year", {
           onChange: (e) => {
