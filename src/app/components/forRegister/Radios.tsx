@@ -52,8 +52,10 @@ import enterpreneuerIcon from "/public/briefcase-line.svg";
 import Image from "next/image";
 import { IUser } from "@/app/types/RegisterUser";
 import { UseFormRegister, UseFormWatch } from "react-hook-form";
+
 const CustomRadioButtons = ({
   register,
+  watch,
 }: {
   register: UseFormRegister<IUser>;
   watch: UseFormWatch<IUser>;
@@ -62,10 +64,13 @@ const CustomRadioButtons = ({
   //   const foo = () => {
   //     setSelectedOption("investor");
   //   };
-  //   useEffect(() => {
-  //     setSelectedOption("investor");
-  //   }, [selectedOption]);
-  console.log(selectedOption);
+  // useEffect(() => {
+  //   const foo = watch("role");
+  //   setSelectedOption("investor");
+  // }, [selectedOption]);
+
+  // const foo = watch("role");
+
   return (
     <div className="flex items-center justify-between">
       {/* Entrepreneur Option */}
@@ -76,7 +81,8 @@ const CustomRadioButtons = ({
           value="entrepreneur"
           className="hidden"
           checked={selectedOption === "entrepreneur"}
-          onChange={() => setSelectedOption("entrepreneur")}
+          onClick={() => setSelectedOption("entrepreneur")}
+          {...register("role")}
         />
         <span
           className={`w-5 h-5 rounded-full border-2 border-[#C29252] mr-2 ${
@@ -108,12 +114,14 @@ const CustomRadioButtons = ({
           value="investor"
           className="hidden"
           checked={selectedOption === "investor"}
-          onChange={() => setSelectedOption("investor")}
-          //   {...register("role", {
-          //     onChange: () => {
-          //       setSelectedOption("investor"); // Update state for selected option
-          //     },
-          //   })}
+          onClick={() => setSelectedOption("investor")}
+          {...register("role")}
+
+          // {...register("role", {
+          //   onChange: () => {
+          //     setSelectedOption("investor"); // Update state for selected option
+          //   },
+          // })}
         />
         <span
           className={`w-5 h-5 rounded-full border-2 border-[#C29252] mr-2 ${

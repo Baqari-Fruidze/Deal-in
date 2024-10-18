@@ -21,7 +21,32 @@ export default function Register() {
     watch,
     formState: { errors },
   } = useForm<IUser>();
-  const inputsData: SubmitHandler<IUser> = (data) => console.log(data);
+
+  const inputsData: SubmitHandler<IUser> = async (data) => {
+    const res = await fetch(
+      "https://dealin-api.onrender.com/api/dj-rest-auth/registration/",
+
+      {
+        method: "POST", // Specify the HTTP method
+        headers: {
+          "Content-Type": "application/json", // Set the content type to JSON
+        },
+        body: JSON.stringify(data), // Convert form data to JSON
+        cache: "no-cache",
+      }
+    );
+
+    if (!res.ok) {
+      console.log(res);
+      // Handle HTTP errors
+      const errorData = await res.json();
+      console.error("Error:", errorData);
+    } else {
+      const result = await res.json();
+      console.log("Success:", result);
+    }
+  };
+
   return (
     <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px] min-h-screen">
       <div className="blue bg-[#152C5E] max-w-[534px] mx-[auto] my-[0] pt-[24px] pb-[30px] ">
