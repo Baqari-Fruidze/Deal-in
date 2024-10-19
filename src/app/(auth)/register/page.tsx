@@ -52,45 +52,61 @@ export default function Register() {
   };
 
   return (
-    <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px]  flex justify-center">
-      <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[30px]  flex justify-center ">
-        <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px] max-w-[362px] w-full ">
+    <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px] min-h-screen flex justify-center">
+      <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[50px]  flex justify-center h-fit ">
+        <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px]  w-full ">
           <Image src={logo} width={100} height={50} alt="logo"></Image>
           <form
             className="w-full flex flex-col gap-[35px] max-w-[362px]"
             onSubmit={handleSubmit(inputsData)}
           >
-            <input
-              type="text"
-              placeholder="username"
-              style={{
-                backgroundImage: `url("/user-line.svg")`,
-              }}
-              className={`inputsINStart outline-none ${
-                errors.username?.message
-                  ? "border-2 border-red-500"
-                  : "border-2 border-[#d9a34a]"
-              }`}
-              {...register("username")}
-            />
+            <div className="w-full relative">
+              <input
+                type="text"
+                placeholder="username"
+                style={{
+                  backgroundImage: `url("/user-line.svg")`,
+                }}
+                className={`inputsINStart w-full outline-none ${
+                  errors.username?.message
+                    ? "border-2 border-red-500"
+                    : "border-2 border-[#d9a34a]"
+                }`}
+                {...register("username")}
+              />
+              {errors.username ? (
+                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                  {errors.username.message}
+                </span>
+              ) : null}
+            </div>
+
             <div className="flex justify-between items-center">
               <SelectMonth register={register} error={errors} />
               <SelectYear register={register} error={errors} />
               <SelectDay register={register} error={errors} />
             </div>
-            <input
-              type="text"
-              placeholder="email"
-              style={{
-                backgroundImage: `url("/mail-line.svg")`,
-              }}
-              {...register("email")}
-              className={`inputsINStart ${
-                errors.email?.message
-                  ? "border-2 border-red-500"
-                  : "border-2 border-[#d9a34a]"
-              }`}
-            />
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="email"
+                style={{
+                  backgroundImage: `url("/mail-line.svg")`,
+                }}
+                {...register("email")}
+                className={`inputsINStart w-full ${
+                  errors.email?.message
+                    ? "border-2 border-red-500"
+                    : "border-2 border-[#d9a34a]"
+                }`}
+              />
+              {errors.email ? (
+                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                  {errors.email.message}
+                </span>
+              ) : null}
+            </div>
+
             <div className="relative w-full">
               <input
                 type={`${changeType ? "password" : "text"}`}
@@ -124,6 +140,11 @@ export default function Register() {
                   onClick={() => setChangeType(!changeType)}
                 ></Image>
               )}
+              {errors.password1 ? (
+                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                  {errors.password1.message}
+                </span>
+              ) : null}
             </div>
             <div className="relative w-full">
               <input
@@ -158,6 +179,11 @@ export default function Register() {
                   onClick={() => setChangeType2(!changeType2)}
                 ></Image>
               )}
+              {errors.password2 ? (
+                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                  {errors.password2.message}
+                </span>
+              ) : null}
             </div>
 
             <div className="h-[44px] bg-[#C29252] rounded-[5px] flex items-center justify-center">

@@ -3,24 +3,25 @@ export const RegisterScema = yup.object({
   username: yup.string().min(4, "min 4 symbols").required("can' t be empty"),
   email: yup
     .string()
+    .required("can' t be empty")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
       "Invalid email format."
-    )
-    .required("can' t be empty"),
+    ),
   password1: yup
     .string()
+    .required("can' t be empty")
     .matches(
       /^(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_-]{3,16}$/,
       "min one big char and one number "
-    )
-    .required("can' t be empty"),
+    ),
+
   password2: yup
     .string()
     .oneOf([yup.ref("password1"), undefined], "Passwords must match")
-    .required("Password confirmation can't be empty"),
+    .required("password confirmation can't be empty"),
   role: yup.string().required("please choose your role"),
-  month: yup.string().required("please select month"),
-  day: yup.string().required("please select day"),
-  year: yup.string().required("please select year"),
+  month: yup.string().required("required"),
+  day: yup.string().required("required"),
+  year: yup.string().required("required"),
 });

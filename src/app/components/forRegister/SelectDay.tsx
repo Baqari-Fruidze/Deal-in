@@ -68,6 +68,11 @@ export default function DaySelect({
           ></path>
         </svg>
       </div>
+      {error.day ? (
+        <span className="text-red-500 text-[15px] absolute top-[45px] left-1">
+          {error.day.message}
+        </span>
+      ) : null}
     </div>
   );
 }

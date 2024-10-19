@@ -66,6 +66,11 @@ export default function MonthSelect({
           ></path>
         </svg>
       </div>
+      {error.month ? (
+        <span className="text-red-500 text-[15px] absolute top-[45px] left-1">
+          {error.month.message}
+        </span>
+      ) : null}
     </div>
   );
 }

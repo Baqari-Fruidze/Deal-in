@@ -67,6 +67,11 @@ export default function YearSelect({
           ></path>
         </svg>
       </div>
+      {error.year ? (
+        <span className="text-red-500 text-[15px] absolute top-[45px] left-1">
+          {error.year.message}
+        </span>
+      ) : null}
     </div>
   );
 }

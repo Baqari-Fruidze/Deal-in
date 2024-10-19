@@ -24,14 +24,14 @@ const CustomRadioButtons = ({
   // }, [selectedOption]);
 
   // const foo = watch("role");
-  console.log(watch("role"));
+
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex  justify-between relative">
       <label className="flex items-center gap-[12px] cursor-pointer">
         <input
           type="radio"
           value="entrepreneur"
-          className="opacity-0"
+          className="opacity-0 absolute"
           checked={selectedOption === "entrepreneur"}
           {...register("role")}
           onChange={() => setSelectedOption("entrepreneur")}
@@ -49,9 +49,7 @@ const CustomRadioButtons = ({
         ></Image>
         <span
           className={`text-[14px] text-[#B6C8EF] font-medium  underline ${
-            error.role?.message
-              ? "decoration-red-500"
-              : selectedOption === "entrepreneur"
+            selectedOption === "entrepreneur"
               ? "decoration-[#C29252]"
               : "normal"
           } `}
@@ -78,16 +76,17 @@ const CustomRadioButtons = ({
         <Image src={dolarIcon} width={15} height={15} alt="icon"></Image>
         <span
           className={`text-[14px] text-[#B6C8EF] font-medium  underline ${
-            error.role?.message
-              ? "decoration-red-500"
-              : selectedOption === "investor"
-              ? "decoration-[#C29252]"
-              : "normal"
+            selectedOption === "investor" ? "decoration-[#C29252]" : "normal"
           } `}
         >
           Investor
         </span>
       </label>
+      {error.role?.message ? (
+        <span className="absolute text-[14px] text-red-500 top-5 left-0">
+          {error.role.message}
+        </span>
+      ) : null}
     </div>
   );
 };
