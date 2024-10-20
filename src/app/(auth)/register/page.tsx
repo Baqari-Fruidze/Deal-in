@@ -42,9 +42,9 @@ export default function Register() {
 
     if (!res.ok) {
       console.log(res);
-      // Handle HTTP errors
+
       const errorData = await res.json();
-      console.error("Error:", errorData);
+      console.log(errorData);
     } else {
       const result = await res.json();
       console.log("Success:", result);

@@ -41,7 +41,7 @@ export default function Page() {
                 }}
                 {...register("username")}
               />
-              <span className="absolute text-red-500 text-[16px] top-[54px] left-3 font-medium">
+              <span className="absolute text-red-500 text-[16px] top-[54px] left-3 font-medium des:top-[58px]">
                 {errors.username?.message}
               </span>
             </div>
@@ -79,7 +79,7 @@ export default function Page() {
                   onClick={() => setType(!type)}
                 ></Image>
               )}
-              <span className="absolute text-red-500 text-[16px] top-[54px] left-3 font-medium">
+              <span className="absolute text-red-500 text-[16px] top-[54px] left-3 font-medium des:top-[58px]">
                 {errors.email?.message}
               </span>
             </div>

@@ -14,7 +14,8 @@ export const RegisterScema = yup.object({
     .matches(
       /^(?=.*[A-Z])(?=.*\d)[a-zA-Z0-9_-]{3,16}$/,
       "min one big char and one number "
-    ),
+    )
+    .min(8, "min 8 char"),
 
   password2: yup
     .string()
