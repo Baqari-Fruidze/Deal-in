@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ILogin } from "@/app/types/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginScema } from "@/scema/LoginScema";
+import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
 
 export default function Page() {
   const [type, setType] = useState(true);
@@ -102,6 +103,7 @@ export default function Page() {
           </button>
         </form>
       </div>
+      <ConfirmCodeInput email={""} />
     </div>
   );
 }

@@ -13,10 +13,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IUser } from "@/app/types/RegisterUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterScema } from "@/scema/RegisterScema";
+import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
 
 export default function Register() {
   const [changeType, setChangeType] = useState(true);
   const [changeType2, setChangeType2] = useState(true);
+  const [withoutErrors, setWithoutErrors] = useState<boolean>(true);
+  const [email, setEmail] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -26,23 +29,22 @@ export default function Register() {
   console.log(errors);
 
   const inputsData: SubmitHandler<IUser> = async (data) => {
-    console.log(data);
+    setEmail(data.email);
     const res = await fetch(
       "https://dealin-api.onrender.com/api/dj-rest-auth/registration/",
 
       {
-        method: "POST", // Specify the HTTP method
+        method: "POST",
         headers: {
-          "Content-Type": "application/json", // Set the content type to JSON
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data), // Convert form data to JSON
+        body: JSON.stringify(data),
         cache: "no-cache",
       }
     );
 
-    if (!res.ok) {
-      console.log(res);
-
+    if (res.ok) {
+      setWithoutErrors(true);
       const errorData = await res.json();
       console.log(errorData);
     } else {
@@ -53,151 +55,155 @@ export default function Register() {
 
   return (
     <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px] min-h-screen flex justify-center">
-      <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[50px]  flex justify-center h-fit ">
-        <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px]  w-full ">
-          <Image src={logo} width={100} height={50} alt="logo"></Image>
-          <form
-            className="w-full flex flex-col gap-[35px] max-w-[362px]"
-            onSubmit={handleSubmit(inputsData)}
-          >
-            <div className="w-full relative">
-              <input
-                type="text"
-                placeholder="username"
-                style={{
-                  backgroundImage: `url("/user-line.svg")`,
-                }}
-                className={`inputsINStart w-full outline-none ${
-                  errors.username?.message
-                    ? "border-2 border-red-500"
-                    : "border-2 border-[#d9a34a]"
-                }`}
-                {...register("username")}
-              />
-              {errors.username ? (
-                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
-                  {errors.username.message}
-                </span>
-              ) : null}
-            </div>
+      {withoutErrors ? (
+        <ConfirmCodeInput email={email} />
+      ) : (
+        <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[50px]  flex justify-center h-fit ">
+          <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px]  w-full ">
+            <Image src={logo} width={100} height={50} alt="logo"></Image>
+            <form
+              className="w-full flex flex-col gap-[35px] max-w-[362px]"
+              onSubmit={handleSubmit(inputsData)}
+            >
+              <div className="w-full relative">
+                <input
+                  type="text"
+                  placeholder="username"
+                  style={{
+                    backgroundImage: `url("/user-line.svg")`,
+                  }}
+                  className={`inputsINStart w-full outline-none ${
+                    errors.username?.message
+                      ? "border-2 border-red-500"
+                      : "border-2 border-[#d9a34a]"
+                  }`}
+                  {...register("username")}
+                />
+                {errors.username ? (
+                  <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                    {errors.username.message}
+                  </span>
+                ) : null}
+              </div>
 
-            <div className="flex justify-between items-center">
-              <SelectMonth register={register} error={errors} />
-              <SelectYear register={register} error={errors} />
-              <SelectDay register={register} error={errors} />
-            </div>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="email"
-                style={{
-                  backgroundImage: `url("/mail-line.svg")`,
-                }}
-                {...register("email")}
-                className={`inputsINStart w-full ${
-                  errors.email?.message
-                    ? "border-2 border-red-500"
-                    : "border-2 border-[#d9a34a]"
-                }`}
-              />
-              {errors.email ? (
-                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
-                  {errors.email.message}
-                </span>
-              ) : null}
-            </div>
+              <div className="flex justify-between items-center">
+                <SelectMonth register={register} error={errors} />
+                <SelectYear register={register} error={errors} />
+                <SelectDay register={register} error={errors} />
+              </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="email"
+                  style={{
+                    backgroundImage: `url("/mail-line.svg")`,
+                  }}
+                  {...register("email")}
+                  className={`inputsINStart w-full ${
+                    errors.email?.message
+                      ? "border-2 border-red-500"
+                      : "border-2 border-[#d9a34a]"
+                  }`}
+                />
+                {errors.email ? (
+                  <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                    {errors.email.message}
+                  </span>
+                ) : null}
+              </div>
 
-            <div className="relative w-full">
-              <input
-                type={`${changeType ? "password" : "text"}`}
-                placeholder="Password"
-                style={{
-                  backgroundImage: `url("/key-line.svg")`,
-                }}
-                className={`inputsINStart w-full ${
-                  errors.password1?.message
-                    ? "border-2 border-red-500"
-                    : "border-2 border-[#d9a34a]"
-                }`}
-                {...register("password1")}
-              />
-              {changeType ? (
-                <Image
-                  src={hide}
-                  width={21}
-                  height={18}
-                  alt="icon"
-                  className="absolute top-[30%] right-5"
-                  onClick={() => setChangeType(!changeType)}
-                ></Image>
-              ) : (
-                <Image
-                  src={show}
-                  width={21}
-                  height={18}
-                  alt="icon"
-                  className="absolute top-[30%] right-5"
-                  onClick={() => setChangeType(!changeType)}
-                ></Image>
-              )}
-              {errors.password1 ? (
-                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
-                  {errors.password1.message}
-                </span>
-              ) : null}
-            </div>
-            <div className="relative w-full">
-              <input
-                type={`${changeType2 ? "password" : "text"}`}
-                placeholder="Repeat Password"
-                style={{
-                  backgroundImage: `url("/key-line.svg")`,
-                }}
-                className={`inputsINStart w-full ${
-                  errors.password2?.message
-                    ? "border-2 border-red-500"
-                    : "border-2 border-[#d9a34a]"
-                }`}
-                {...register("password2")}
-              />
-              {changeType2 ? (
-                <Image
-                  src={hide}
-                  width={21}
-                  height={18}
-                  alt="icon"
-                  className="absolute top-[30%] right-5"
-                  onClick={() => setChangeType2(!changeType2)}
-                ></Image>
-              ) : (
-                <Image
-                  src={show}
-                  width={21}
-                  height={18}
-                  alt="icon"
-                  className="absolute top-[30%] right-5"
-                  onClick={() => setChangeType2(!changeType2)}
-                ></Image>
-              )}
-              {errors.password2 ? (
-                <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
-                  {errors.password2.message}
-                </span>
-              ) : null}
-            </div>
+              <div className="relative w-full">
+                <input
+                  type={`${changeType ? "password" : "text"}`}
+                  placeholder="Password"
+                  style={{
+                    backgroundImage: `url("/key-line.svg")`,
+                  }}
+                  className={`inputsINStart w-full ${
+                    errors.password1?.message
+                      ? "border-2 border-red-500"
+                      : "border-2 border-[#d9a34a]"
+                  }`}
+                  {...register("password1")}
+                />
+                {changeType ? (
+                  <Image
+                    src={hide}
+                    width={21}
+                    height={18}
+                    alt="icon"
+                    className="absolute top-[30%] right-5"
+                    onClick={() => setChangeType(!changeType)}
+                  ></Image>
+                ) : (
+                  <Image
+                    src={show}
+                    width={21}
+                    height={18}
+                    alt="icon"
+                    className="absolute top-[30%] right-5"
+                    onClick={() => setChangeType(!changeType)}
+                  ></Image>
+                )}
+                {errors.password1 ? (
+                  <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                    {errors.password1.message}
+                  </span>
+                ) : null}
+              </div>
+              <div className="relative w-full">
+                <input
+                  type={`${changeType2 ? "password" : "text"}`}
+                  placeholder="Repeat Password"
+                  style={{
+                    backgroundImage: `url("/key-line.svg")`,
+                  }}
+                  className={`inputsINStart w-full ${
+                    errors.password2?.message
+                      ? "border-2 border-red-500"
+                      : "border-2 border-[#d9a34a]"
+                  }`}
+                  {...register("password2")}
+                />
+                {changeType2 ? (
+                  <Image
+                    src={hide}
+                    width={21}
+                    height={18}
+                    alt="icon"
+                    className="absolute top-[30%] right-5"
+                    onClick={() => setChangeType2(!changeType2)}
+                  ></Image>
+                ) : (
+                  <Image
+                    src={show}
+                    width={21}
+                    height={18}
+                    alt="icon"
+                    className="absolute top-[30%] right-5"
+                    onClick={() => setChangeType2(!changeType2)}
+                  ></Image>
+                )}
+                {errors.password2 ? (
+                  <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                    {errors.password2.message}
+                  </span>
+                ) : null}
+              </div>
 
-            <div className="h-[44px] bg-[#C29252] rounded-[5px] flex items-center justify-center">
-              <p className="text-[14px] text-white font-normal des:text-[18px]">
-                Who Are You?
-              </p>
-            </div>
-            <Radios register={register} error={errors} watch={watch} />
-            <button className="text-[#192C57] text-[15px] font-[600] bg-[#EAEFFA] rounded-[10px] py-[14px]">
-              Register
-            </button>
-          </form>
+              <div className="h-[44px] bg-[#C29252] rounded-[5px] flex items-center justify-center">
+                <p className="text-[14px] text-white font-normal des:text-[18px]">
+                  Who Are You?
+                </p>
+              </div>
+              <Radios register={register} error={errors} watch={watch} />
+              <button className="text-[#192C57] text-[15px] font-[600] bg-[#EAEFFA] rounded-[10px] py-[14px]">
+                Register
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
