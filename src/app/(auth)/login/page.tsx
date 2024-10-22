@@ -5,7 +5,7 @@ import hide from "/public/eye-off-line.svg";
 import Image from "next/image";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { ILogin } from "@/app/types/LoginUser";
+import { ILogin } from "@/app/types/auth/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginScema } from "@/scema/LoginScema";
 import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
@@ -17,8 +17,8 @@ export default function Page() {
     handleSubmit,
     formState: { errors },
   } = useForm<ILogin>({ resolver: yupResolver(LoginScema) });
-  console.log(errors);
-  const inputsData: SubmitHandler<ILogin> = (data) => console.log(data);
+
+  const inputsData: SubmitHandler<ILogin> = async (data) => console.log(data);
   return (
     <div className="bg-[#C7D9FF] w-full min-h-screen flex justify-center items-center">
       <div className="bg-[#152C5E] flex flex-col items-center gap-[50px] max-w-[570px] mx-[auto] my-[0] py-[50px] px-[24px]">

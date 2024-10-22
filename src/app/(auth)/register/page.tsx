@@ -10,23 +10,23 @@ import SelectDay from "@/app/components/forRegister/SelectDay";
 import Radios from "@/app/components/forRegister/Radios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IUser } from "@/app/types/RegisterUser";
+import { IUser } from "@/app/types/auth/RegisterUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterScema } from "@/scema/RegisterScema";
 import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
+import { IerrorsInRegister } from "@/app/types/auth/ErrorsInRegister";
 
 export default function Register() {
   const [changeType, setChangeType] = useState(true);
   const [changeType2, setChangeType2] = useState(true);
-  const [withoutErrors, setWithoutErrors] = useState<boolean>(true);
+  const [withoutErrors, setWithoutErrors] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
+  const [erorsObj, setErrorObj] = useState<IerrorsInRegister>({});
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<IUser>({ resolver: yupResolver(RegisterScema) });
-  console.log(errors);
 
   const inputsData: SubmitHandler<IUser> = async (data) => {
     setEmail(data.email);
@@ -45,11 +45,9 @@ export default function Register() {
 
     if (res.ok) {
       setWithoutErrors(true);
-      const errorData = await res.json();
-      console.log(errorData);
     } else {
       const result = await res.json();
-      console.log("Success:", result);
+      setErrorObj(result);
     }
   };
 
@@ -84,6 +82,11 @@ export default function Register() {
                     {errors.username.message}
                   </span>
                 ) : null}
+                {erorsObj.username ? (
+                  <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                    User with this username already exists
+                  </span>
+                ) : null}
               </div>
 
               <div className="flex justify-between items-center">
@@ -108,6 +111,11 @@ export default function Register() {
                 {errors.email ? (
                   <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
                     {errors.email.message}
+                  </span>
+                ) : null}
+                {erorsObj.email ? (
+                  <span className="text-red-500 text-[15px] absolute top-[55px] left-2 des:top-[60px]">
+                    User with this email already exists
                   </span>
                 ) : null}
               </div>
@@ -196,7 +204,7 @@ export default function Register() {
                   Who Are You?
                 </p>
               </div>
-              <Radios register={register} error={errors} watch={watch} />
+              <Radios register={register} error={errors} />
               <button className="text-[#192C57] text-[15px] font-[600] bg-[#EAEFFA] rounded-[10px] py-[14px]">
                 Register
               </button>

@@ -1,4 +1,4 @@
-import { IUser } from "@/app/types/RegisterUser";
+import { IUser } from "@/app/types/auth/RegisterUser";
 import { useState } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 export default function YearSelect({

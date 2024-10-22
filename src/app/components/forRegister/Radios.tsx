@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import dolarIcon from "/public/money-dollar-circle-line.svg";
 import enterpreneuerIcon from "/public/briefcase-line.svg";
 import Image from "next/image";
-import { IUser } from "@/app/types/RegisterUser";
+import { IUser } from "@/app/types/auth/RegisterUser";
 import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
 
 const CustomRadioButtons = ({
