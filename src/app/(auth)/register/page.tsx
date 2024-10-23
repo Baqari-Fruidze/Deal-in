@@ -19,7 +19,7 @@ import { IerrorsInRegister } from "@/app/types/auth/ErrorsInRegister";
 export default function Register() {
   const [changeType, setChangeType] = useState(true);
   const [changeType2, setChangeType2] = useState(true);
-  const [withoutErrors, setWithoutErrors] = useState<boolean>(true);
+  const [withoutErrors, setWithoutErrors] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [erorsObj, setErrorObj] = useState<IerrorsInRegister>({});
   const {
@@ -54,7 +54,7 @@ export default function Register() {
   return (
     <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px] min-h-screen flex justify-center">
       {withoutErrors ? (
-        <ConfirmCodeInput email={email} />
+        <ConfirmCodeInput email={email} setWithoutErrors={setWithoutErrors} />
       ) : (
         <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[50px]  flex justify-center h-fit ">
           <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px]  w-full ">

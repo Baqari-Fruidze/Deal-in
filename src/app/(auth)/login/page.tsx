@@ -18,7 +18,24 @@ export default function Page() {
     formState: { errors },
   } = useForm<ILogin>({ resolver: yupResolver(LoginScema) });
 
-  const inputsData: SubmitHandler<ILogin> = async (data) => console.log(data);
+  const inputsData: SubmitHandler<ILogin> = async (data) => {
+    const res = await fetch(
+      "https://dealin-api.onrender.com/api/dj-rest-auth/registration/",
+
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        cache: "no-cache",
+      }
+    );
+
+    if (res.ok) {
+    } else {
+    }
+  };
   return (
     <div className="bg-[#C7D9FF] w-full min-h-screen flex justify-center items-center">
       <div className="bg-[#152C5E] flex flex-col items-center gap-[50px] max-w-[570px] mx-[auto] my-[0] py-[50px] px-[24px]">
