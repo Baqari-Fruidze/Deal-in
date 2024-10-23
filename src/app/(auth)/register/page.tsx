@@ -19,7 +19,7 @@ import { IerrorsInRegister } from "@/app/types/auth/ErrorsInRegister";
 export default function Register() {
   const [changeType, setChangeType] = useState(true);
   const [changeType2, setChangeType2] = useState(true);
-  const [withoutErrors, setWithoutErrors] = useState<boolean>(false);
+  const [withoutErrors, setWithoutErrors] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
   const [erorsObj, setErrorObj] = useState<IerrorsInRegister>({});
   const {

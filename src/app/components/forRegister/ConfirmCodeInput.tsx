@@ -14,32 +14,30 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
   const router = useRouter();
   const inputData = async () => {
     setClicked(true);
-    const url =
-      path === "/register"
-        ? "https://dealin-api.onrender.com/api/dj-rest-auth/registration/account-confirm-email/"
-        : "https://dealin-api.onrender.com/api/dj-rest-auth/login/";
 
-    try {
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          code: value,
-        }),
-        cache: "no-cache",
-      });
+    if (path === "/register") {
+      const res = await fetch(
+        "https://dealin-api.onrender.com/api/dj-rest-auth/registration/account-confirm-email/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            code: value,
+          }),
+          cache: "no-cache",
+        }
+      );
 
       if (res.ok) {
         router.push("/");
       } else {
         setEror(true);
       }
-    } catch (error) {}
+    }
   };
-  console.log(eror);
   return (
     <div className="bg-[#152C5E] px-[16px] flex flex-col gap-8 items-center w-[400px] h-fit p-5 rounded-xl mt-[50px] relative">
       <h1 className="text-white text-[20px] font-normal text-center">
