@@ -3,13 +3,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Congrats from "./Congrats";
 
-export default function ConfirmCodeInput({
-  email,
-  setWithoutErrors,
-}: {
-  email: string;
-  setWithoutErrors: Dispatch<SetStateAction<boolean>>;
-}) {
+export default function ConfirmCodeInput({ email }: { email: string }) {
   const [value, setValue] = useState("");
   const [clicked, setClicked] = useState<boolean>(false);
   const [eror, setEror] = useState<boolean>(false);
@@ -46,7 +40,7 @@ export default function ConfirmCodeInput({
       }
     } else {
       const res = await fetch(
-        "https://dealin-api.onrender.com/api/dj-rest-auth/send-code/",
+        "https://dealin-api.onrender.com/api/dj-rest-auth/login/",
         {
           method: "POST",
           headers: {
@@ -61,8 +55,10 @@ export default function ConfirmCodeInput({
       );
 
       if (res.ok) {
+        console.log(res);
         router.push("user-dashboard");
       } else {
+        console.log(res);
         setEror(true);
       }
     }
@@ -70,7 +66,9 @@ export default function ConfirmCodeInput({
 
   return (
     <>
-      {!success ? (
+      {success ? (
+        <Congrats setSuccess={setSuccess} />
+      ) : (
         <div className="bg-[#152C5E] px-[16px] flex flex-col gap-8 items-center w-[400px] h-fit p-5 rounded-xl mt-[50px] relative">
           <h1 className="text-white text-[20px] font-normal text-center">
             Please enter the code, sent to your email
@@ -96,8 +94,6 @@ export default function ConfirmCodeInput({
             </span>
           ) : null}
         </div>
-      ) : (
-        <Congrats setSuccess={setSuccess} setWithoutErrors={setWithoutErrors} />
       )}
     </>
   );

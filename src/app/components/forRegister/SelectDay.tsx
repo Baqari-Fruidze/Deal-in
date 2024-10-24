@@ -26,7 +26,7 @@ export default function DaySelect({
   return (
     <div className="relative inline-block w-[100px]">
       {!selectedDay && (
-        <span className="absolute left-7 top-2 text-[16px] text-[#B6C8EF] pointer-events-none">
+        <span className="absolute left-2 top-2 text-[16px] text-[#B6C8EF] pointer-events-none">
           dd
         </span>
       )}

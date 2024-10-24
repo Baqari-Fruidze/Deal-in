@@ -1,18 +1,15 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Dispatch, SetStateAction } from "react";
+import { SetStateAction } from "react";
 export default function Congrats({
   setSuccess,
-  setWithoutErrors,
 }: {
   setSuccess: React.Dispatch<React.SetStateAction<boolean>>;
-  setWithoutErrors: React.Dispatch<SetStateAction<boolean>>;
 }) {
   const router = useRouter();
   const foo = () => {
     setSuccess(false);
-    setWithoutErrors(false);
     router.push("/login");
   };
   return (

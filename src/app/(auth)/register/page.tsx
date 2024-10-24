@@ -90,9 +90,9 @@ export default function Register() {
               </div>
 
               <div className="flex justify-between items-center">
+                <SelectDay register={register} error={errors} />
                 <SelectMonth register={register} error={errors} />
                 <SelectYear register={register} error={errors} />
-                <SelectDay register={register} error={errors} />
               </div>
               <div className="relative">
                 <input
