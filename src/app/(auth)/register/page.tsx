@@ -31,7 +31,7 @@ export default function Register() {
   const inputsData: SubmitHandler<IUser> = async (data) => {
     setEmail(data.email);
     const res = await fetch(
-      "https://dealin-api.onrender.com/api/dj-rest-auth/registration/",
+      "https://dealin-api-production.up.railway.app/api/dj-rest-auth/registration/",
 
       {
         method: "POST",
@@ -42,11 +42,12 @@ export default function Register() {
         cache: "no-cache",
       }
     );
-
+    console.log(res);
     if (res.ok) {
       setWithoutErrors(true);
     } else {
       const result = await res.json();
+      console.log(result);
       setErrorObj(result);
     }
   };

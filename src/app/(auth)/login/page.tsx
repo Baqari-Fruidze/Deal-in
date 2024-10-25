@@ -21,7 +21,7 @@ export default function Page() {
 
   const inputsData: SubmitHandler<ILogin> = async (data) => {
     const res = await fetch(
-      "https://dealin-api.onrender.com/api/dj-rest-auth/send-code/",
+      "https://dealin-api-production.up.railway.app/api/dj-rest-auth/send-code/",
 
       {
         method: "POST",
@@ -34,6 +34,7 @@ export default function Page() {
     );
 
     if (res.ok) {
+      console.log(await res.json());
       setSuc(true);
     } else {
     }

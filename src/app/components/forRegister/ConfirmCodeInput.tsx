@@ -19,7 +19,7 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
 
     if (path === "/register") {
       const res = await fetch(
-        "https://dealin-api.onrender.com/api/dj-rest-auth/registration/account-confirm-email/",
+        "https://dealin-api-production.up.railway.app/api/dj-rest-auth/registration/account-confirm-email/",
         {
           method: "POST",
           headers: {
@@ -40,7 +40,7 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
       }
     } else {
       const res = await fetch(
-        "https://dealin-api.onrender.com/api/dj-rest-auth/login/",
+        "https://dealin-api-production.up.railway.app/api/dj-rest-auth/login/",
         {
           method: "POST",
           headers: {
@@ -63,7 +63,7 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
       }
     }
   };
-
+  console.log(value);
   return (
     <>
       {success ? (
