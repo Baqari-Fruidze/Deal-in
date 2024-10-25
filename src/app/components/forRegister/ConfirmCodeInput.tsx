@@ -9,6 +9,7 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
   const [eror, setEror] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const path = usePathname();
+  console.log(email);
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -53,17 +54,14 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
           cache: "no-cache",
         }
       );
-
+      console.log(res);
       if (res.ok) {
-        console.log(res);
         router.push("user-dashboard");
       } else {
-        console.log(res);
         setEror(true);
       }
     }
   };
-  console.log(value);
   return (
     <>
       {success ? (

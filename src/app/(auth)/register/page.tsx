@@ -10,11 +10,11 @@ import SelectDay from "@/app/components/forRegister/SelectDay";
 import Radios from "@/app/components/forRegister/Radios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IUser } from "@/app/types/auth/RegisterUser";
+import { IUser } from "@/types/auth/RegisterUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterScema } from "@/scema/RegisterScema";
 import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
-import { IerrorsInRegister } from "@/app/types/auth/ErrorsInRegister";
+import { IerrorsInRegister } from "@/types/auth/ErrorsInRegister";
 
 export default function Register() {
   const [changeType, setChangeType] = useState(true);
@@ -55,7 +55,7 @@ export default function Register() {
   return (
     <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px] min-h-screen flex justify-center">
       {withoutErrors ? (
-        <ConfirmCodeInput email={email} setWithoutErrors={setWithoutErrors} />
+        <ConfirmCodeInput email={email} />
       ) : (
         <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[50px]  flex justify-center h-fit ">
           <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px]  w-full ">
