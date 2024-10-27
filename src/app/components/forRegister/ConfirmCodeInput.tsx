@@ -54,7 +54,7 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
           cache: "no-cache",
         }
       );
-      console.log(res);
+      console.log(await res.json());
       if (res.ok) {
         router.push("user-dashboard");
       } else {

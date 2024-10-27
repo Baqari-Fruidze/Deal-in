@@ -34,7 +34,6 @@ export default function Page() {
         cache: "no-cache",
       }
     );
-    console.log(res);
     if (res.ok) {
       setSuc(true);
     } else {
