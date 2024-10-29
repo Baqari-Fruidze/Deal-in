@@ -9,10 +9,17 @@ import { ILogin } from "@/types/auth/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginScema } from "@/scema/LoginScema";
 import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
+import { signIn } from "next-auth/react";
+import { redirect } from "next/dist/server/api-utils";
+import { IUser } from "@/types/auth/RegisterUser";
 export default function Page() {
   const [type, setType] = useState(true);
   const [suc, setSuc] = useState<boolean>(false);
   const [Email, setEmail] = useState<string>("");
+  const [user, setUser] = useState<ILogin>({
+    email: "",
+    password: "",
+  });
   const {
     register,
     handleSubmit,
@@ -21,7 +28,8 @@ export default function Page() {
 
   const inputsData: SubmitHandler<ILogin> = async (data) => {
     setEmail(data.email);
-    console.log(data);
+    setUser(data);
+
     const res = await fetch(
       "https://dealin-api-production.up.railway.app/api/dj-rest-auth/send-code/",
 
@@ -125,7 +133,7 @@ export default function Page() {
           </form>
         </div>
       ) : (
-        <ConfirmCodeInput email={Email} />
+        <ConfirmCodeInput email={Email} user={user} />
       )}
     </div>
   );

@@ -2,8 +2,15 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Congrats from "./Congrats";
+import { ILogin } from "@/types/auth/LoginUser";
 
-export default function ConfirmCodeInput({ email }: { email: string }) {
+export default function ConfirmCodeInput({
+  email,
+  user,
+}: {
+  email: string;
+  user: ILogin;
+}) {
   const [value, setValue] = useState("");
   const [clicked, setClicked] = useState<boolean>(false);
   const [eror, setEror] = useState<boolean>(false);
@@ -62,6 +69,11 @@ export default function ConfirmCodeInput({ email }: { email: string }) {
       }
     }
   };
+  // const res = await signIn("credentials", { ...data, redirect: false });
+  // console.log(res);
+  // if (res?.ok) {
+  //   setSuc(true);
+  // }
   return (
     <>
       {success ? (

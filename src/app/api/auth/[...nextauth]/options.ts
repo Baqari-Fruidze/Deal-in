@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { userInfo } from "os";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -19,23 +20,41 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials) {
         console.log(credentials);
-        const user = {
-          id: "1",
-          name: "beqa",
-          password: "beqa123",
-          email: "beqa@gmail.com",
-          age: 21,
-        };
+        const res = await fetch(
+          "https://dealin-api-production.up.railway.app/api/dj-rest-auth/send-code/",
 
-        if (
-          credentials?.username == user.name &&
-          credentials?.password == user.password
-        ) {
-          return user;
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+            cache: "no-cache",
+          }
+        );
+        const data = await res.json();
+        if (res.ok) {
+          return data["user_info"];
         } else {
           return null;
         }
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+
+    async session({ token, session }) {
+      session.user = token.user;
+      return session;
+    },
+  },
+  pages: {
+    signIn: "login",
+  },
 };
