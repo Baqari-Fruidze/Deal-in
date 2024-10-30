@@ -1,20 +1,20 @@
 "use client";
 import Image from "next/image";
-import logo from "/public/logo.jpg";
+import logo from "/public/hands.png";
 import "../../globals.css";
 import show from "/public/eye-line.svg";
 import hide from "/public/eye-off-line.svg";
-import SelectMonth from "@/app/components/forRegister/SelectMonth";
-import SelectYear from "@/app/components/forRegister/SelectYear";
-import SelectDay from "@/app/components/forRegister/SelectDay";
-import Radios from "@/app/components/forRegister/Radios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUser } from "@/types/auth/RegisterUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { RegisterScema } from "@/scema/RegisterScema";
-import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
 import { IerrorsInRegister } from "@/types/auth/ErrorsInRegister";
+import SelectDay from "@/components/forRegister/SelectDay";
+import SelectMonth from "@/components/forRegister/SelectMonth";
+import SelectYear from "@/components/forRegister/SelectYear";
+import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
+import Radios from "@/components/forRegister/Radios";
 
 export default function Register() {
   const [changeType, setChangeType] = useState(true);
@@ -55,11 +55,16 @@ export default function Register() {
   return (
     <div className=" cover bg-[#F1F5FF] w-full pl-[16px] pr-[16px] pt-[27px] min-h-screen flex justify-center">
       {withoutErrors ? (
-        <ConfirmCodeInput email={email} />
+        <ConfirmCodeInput email={email} user={undefined} />
       ) : (
         <div className="blue w-full bg-[#152C5E] max-w-[534px]  pt-[24px] pb-[50px]  flex justify-center h-fit ">
           <div className="inputsCon   flex  flex-col gap-[30px] justify-center items-center bg-[#152C5E] pl-[16px] pr-[16px]  w-full ">
-            <Image src={logo} width={100} height={50} alt="logo"></Image>
+            <div className="flex items-center gap-[14px]">
+              <Image src={logo} width={48} height={37} alt="logo"></Image>
+              <span className="text-white text-[40px] font-bold tracking-[1px] leading-[37px]">
+                DEALIN
+              </span>
+            </div>
             <form
               className="w-full flex flex-col gap-[35px] max-w-[362px]"
               onSubmit={handleSubmit(inputsData)}

@@ -1,12 +1,12 @@
 "use client";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Congrats from "./Congrats";
 import { ILogin } from "@/types/auth/LoginUser";
+import { signIn } from "next-auth/react";
 
 export default function ConfirmCodeInput({
   email,
-  user,
 }: {
   email: string;
   user: ILogin;
@@ -16,7 +16,6 @@ export default function ConfirmCodeInput({
   const [eror, setEror] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const path = usePathname();
-  console.log(email);
 
   const inputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -47,33 +46,40 @@ export default function ConfirmCodeInput({
         setEror(true);
       }
     } else {
-      const res = await fetch(
-        "https://dealin-api-production.up.railway.app/api/dj-rest-auth/login/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            code: value,
-          }),
-          cache: "no-cache",
-        }
-      );
-      console.log(await res.json());
-      if (res.ok) {
-        router.push("user-dashboard");
+      // const res = await fetch(
+      //   "https://dealin-api-production.up.railway.app/api/dj-rest-auth/login/",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       email: email,
+      //       code: value,
+      //     }),
+      //     cache: "no-cache",
+      //   }
+      // );
+      // console.log(await res.json());
+      // if (res.ok) {
+      //   router.push("user-dashboard");
+      // } else {
+      //   setEror(true);
+      // }
+      const res = await signIn("credentials", {
+        email: email,
+        code: value,
+        redirect: false,
+      });
+      console.log(res);
+      if (res?.ok) {
+        router.push("/user-profile");
       } else {
         setEror(true);
       }
     }
   };
-  // const res = await signIn("credentials", { ...data, redirect: false });
-  // console.log(res);
-  // if (res?.ok) {
-  //   setSuc(true);
-  // }
+
   return (
     <>
       {success ? (

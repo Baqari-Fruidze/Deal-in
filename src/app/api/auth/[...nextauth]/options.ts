@@ -1,6 +1,7 @@
+import useErorState from "@/zustand/ErorMesageInLoginConfirm";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { userInfo } from "os";
+import router from "next/router";
 
 export const options: NextAuthOptions = {
   providers: [
@@ -19,10 +20,8 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        console.log(credentials);
         const res = await fetch(
           "https://dealin-api-production.up.railway.app/api/dj-rest-auth/send-code/",
-
           {
             method: "POST",
             headers: {
@@ -33,6 +32,7 @@ export const options: NextAuthOptions = {
           }
         );
         const data = await res.json();
+        console.log(data);
         if (res.ok) {
           return data["user_info"];
         } else {
@@ -55,6 +55,6 @@ export const options: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "login",
+    signIn: "/login",
   },
 };

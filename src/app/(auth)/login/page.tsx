@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ILogin } from "@/types/auth/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginScema } from "@/scema/LoginScema";
-import ConfirmCodeInput from "@/app/components/forRegister/ConfirmCodeInput";
+import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/dist/server/api-utils";
 import { IUser } from "@/types/auth/RegisterUser";
