@@ -7,9 +7,11 @@ import { signIn } from "next-auth/react";
 
 export default function ConfirmCodeInput({
   email,
+  password,
 }: {
   email: string;
   user: ILogin;
+  password: string;
 }) {
   const [value, setValue] = useState("");
   const [clicked, setClicked] = useState<boolean>(false);
@@ -69,6 +71,7 @@ export default function ConfirmCodeInput({
       const res = await signIn("credentials", {
         email: email,
         code: value,
+        // password: password,
         redirect: false,
       });
       console.log(res);

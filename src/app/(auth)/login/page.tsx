@@ -16,6 +16,7 @@ export default function Page() {
   const [type, setType] = useState(true);
   const [suc, setSuc] = useState<boolean>(false);
   const [Email, setEmail] = useState<string>("");
+  const [pas, setPas] = useState<string>("");
   const [user, setUser] = useState<ILogin>({
     email: "",
     password: "",
@@ -29,6 +30,7 @@ export default function Page() {
   const inputsData: SubmitHandler<ILogin> = async (data) => {
     setEmail(data.email);
     setUser(data);
+    setPas(data.password);
 
     const res = await fetch(
       "https://dealin-api-production.up.railway.app/api/dj-rest-auth/send-code/",
@@ -133,7 +135,7 @@ export default function Page() {
           </form>
         </div>
       ) : (
-        <ConfirmCodeInput email={Email} user={user} />
+        <ConfirmCodeInput email={Email} user={user} password={pas} />
       )}
     </div>
   );

@@ -21,7 +21,7 @@ export const options: NextAuthOptions = {
       },
       async authorize(credentials) {
         const res = await fetch(
-          "https://dealin-api-production.up.railway.app/api/dj-rest-auth/send-code/",
+          "https://dealin-api-production.up.railway.app/api/dj-rest-auth/login/",
           {
             method: "POST",
             headers: {
@@ -32,7 +32,7 @@ export const options: NextAuthOptions = {
           }
         );
         const data = await res.json();
-        console.log(data);
+        console.log("data", data);
         if (res.ok) {
           return data["user_info"];
         } else {
