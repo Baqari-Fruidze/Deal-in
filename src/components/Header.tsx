@@ -1,8 +1,10 @@
+"use client";
 import React from "react";
 import logo from "/public/hands.png";
 import burger from "/public/icon-hamburger.svg";
 import Image from "next/image";
 import dealinText from "/public/dealinText.png";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
   return (
@@ -12,6 +14,7 @@ export default function Header() {
         <Image src={dealinText} width={133} height={37} alt="text"></Image>
       </div>
       <Image src={burger} width={28} height={28} alt="burger icon"></Image>
+      <span onClick={() => signOut()}>signout</span>
     </div>
   );
 }

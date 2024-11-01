@@ -74,7 +74,7 @@ export default function ConfirmCodeInput({
         // password: password,
         redirect: false,
       });
-      console.log(res);
+
       if (res?.ok) {
         router.push("/user-profile");
       } else {
