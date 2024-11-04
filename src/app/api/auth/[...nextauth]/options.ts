@@ -1,9 +1,6 @@
 import { IEnterpreneuer } from "@/types/auth/EnterpreneuerType";
-import useErorState from "@/zustand/ErorMesageInLoginConfirm";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import router from "next/router";
-
 export const options: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -32,9 +29,9 @@ export const options: NextAuthOptions = {
             cache: "no-cache",
           }
         );
-
+        console.log("dataaaaaaaaaaaaaa", res);
         const data = await res.json();
-        // console.log("data", data);
+        console.log("data", data);
         if (res.ok) {
           return data["user_info"];
         } else {
@@ -45,20 +42,9 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // console.log("token", token);
-      // console.log("user", user);
-      // if (user) {
-      // }
-      // console.log("token", token);
-      console.log("user", user);
+      token = { ...token, ...user };
       console.log("token", token);
 
-      // console.log("user", user);
-      if (user) {
-        // token = { ...token, user };
-        token = { ...token, ...user };
-        console.log("token", token);
-      }
       return token;
     },
 

@@ -9,9 +9,7 @@ import { ILogin } from "@/types/auth/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginScema } from "@/scema/LoginScema";
 import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
-import { signIn } from "next-auth/react";
-import { redirect } from "next/dist/server/api-utils";
-import { IUser } from "@/types/auth/RegisterUser";
+
 export default function Page() {
   const [type, setType] = useState(true);
   const [suc, setSuc] = useState<boolean>(false);
