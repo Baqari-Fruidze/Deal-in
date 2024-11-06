@@ -7,7 +7,7 @@ import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ILogin } from "@/types/auth/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginScema } from "@/scema/LoginScema";
+import { LoginSchema } from "@/scema/LoginScema";
 import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
 import { initReactI18next, useTranslation } from "react-i18next";
 import i18n from "i18next";
@@ -41,7 +41,7 @@ export default function Page() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ILogin>({ resolver: yupResolver(LoginScema) });
+  } = useForm<ILogin>({ resolver: yupResolver(LoginSchema) });
 
   const inputsData: SubmitHandler<ILogin> = async (data) => {
     setEmail(data.email);
