@@ -9,33 +9,33 @@ import { ILogin } from "@/types/auth/LoginUser";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginScema } from "@/scema/LoginScema";
 import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
-import { useTranslation } from "react-i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
 import i18n from "i18next";
-import { appWithI18Next } from "ni18n";
-import { ni18nConfig } from "../../../../ni18n.config";
-// import kaLogin from "../../../../public/locales/auth/login/ka.json";
-// import enLogin from "../../../../public/locales/en/en.json";
+import kaLogin from "../../../../public/locales/ka.json";
+import enLogin from "../../../../public/locales/en.json";
 
-// Configure i18n
-// i18n.init({
-//   resources: {
-//     ka: { login: kaLogin },
-//     en: { login: enLogin },
-//   },
-//   lng: "en", // Set default language to Georgian
-//   fallbackLng: "en",
-//   interpolation: {
-//     escapeValue: false,
-//   },
-// });
+if (!i18n.isInitialized) {
+  i18n.use(initReactI18next).init({
+    resources: {
+      en: { login: enLogin.auth },
+      ka: { login: kaLogin.auth },
+    },
+    lng: "ka",
+    fallbackLng: "en",
+    interpolation: { escapeValue: false },
+  });
+}
 
-function Page() {
+export default function Page() {
   const [type, setType] = useState(true);
   const [suc, setSuc] = useState(false);
   const [Email, setEmail] = useState("");
   const [pas, setPas] = useState("");
   const [user, setUser] = useState<ILogin>({ email: "", password: "" });
-  const { t } = useTranslation();
+  const { t } = useTranslation("login");
+  const switchLanguage = (lng: "en" | "ka") => {
+    i18n.changeLanguage(lng);
+  };
 
   const {
     register,
@@ -64,6 +64,11 @@ function Page() {
 
   return (
     <div className="bg-[#C7D9FF] w-full min-h-screen flex justify-center items-center">
+      <div>
+        <button onClick={() => switchLanguage("en")}>English</button>
+        <button onClick={() => switchLanguage("ka")}>ქართული</button>
+        {/* Your existing login form goes here */}
+      </div>
       {!suc ? (
         <div className="bg-[#152C5E] flex flex-col items-center gap-[50px] max-w-[570px] mx-[auto] my-[0] py-[50px] px-[24px]">
           <h1 className="text-[36px] text-[#F1F5FF] font-[600]">
@@ -135,5 +140,3 @@ function Page() {
     </div>
   );
 }
-
-export default appWithI18Next(Page, ni18nConfig);
