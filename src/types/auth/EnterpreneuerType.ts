@@ -11,5 +11,7 @@ export interface IEnterpreneuer {
   first_citizenship: string | null;
   second_citizenship: string | null;
   gender: string | null;
-  profile_picture: string;
+  name?: string | undefined;
+  picture?: string;
+  sub?: string | undefined;
 }

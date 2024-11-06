@@ -29,7 +29,7 @@ export const options: NextAuthOptions = {
             cache: "no-cache",
           }
         );
-        console.log("dataaaaaaaaaaaaaa", res);
+        console.log("Res", res);
         const data = await res.json();
         console.log("data", data);
         if (res.ok) {
@@ -42,13 +42,32 @@ export const options: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      if (user) {
+        token.username = user.username;
+        token.email = user.email;
+        token.first_name = user.first_name;
+        token.last_name = user.last_name;
+        token.date_birth = user.date_birth;
+        token.id_number = user.id_number;
+        token.physical_address = user.physical_address;
+        token.legal_address = user.legal_address;
+        token.mobile_number = user.mobile_number;
+        token.first_citizenship = user.first_citizenship;
+        token.second_citizenship = user.second_citizenship;
+        token.gender = user.gender;
+        token.picture = user.profile_picture; // Assuming you want to use profile_picture as picture
+        token.name = user.name;
+        token.sub = user.sub;
+      }
       token = { ...token, ...user };
       console.log("token", token);
+      console.log("user", user);
 
       return token;
     },
 
     async session({ token, session }) {
+      console.log("tsttss");
       session.user = token as unknown as IEnterpreneuer;
       return session;
     },

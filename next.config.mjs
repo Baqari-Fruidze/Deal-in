@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// import path from "path";
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -10,6 +11,11 @@ const nextConfig = {
       },
     ],
   },
+  // i18n: {
+  //   defaultLocale: "en",
+  //   locales: ["en", "ka"],
+  //   localePath: path.resolve("/public/locales"),
+  // },
 };
 
 export default nextConfig;
