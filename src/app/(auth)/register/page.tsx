@@ -17,8 +17,26 @@ import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
 import Radios from "@/components/forRegister/Radios";
 import karegister from "../../../../public/locales/ka.json";
 import enregister from "../../../../public/locales/en.json";
+import { initReactI18next, useTranslation } from "react-i18next";
+import i18n from "i18next";
+
+if (!i18n.isInitialized) {
+  i18n.use(initReactI18next).init({
+    resources: {
+      en: { register: enregister.register },
+      ka: { register: karegister.register },
+    },
+    lng: "ka",
+    fallbackLng: "en",
+    interpolation: { escapeValue: false },
+  });
+}
 
 export default function Register() {
+  const { t } = useTranslation("register");
+  const switchLanguage = (lng: "en" | "ka") => {
+    i18n.changeLanguage(lng);
+  };
   const [changeType, setChangeType] = useState(true);
   const [changeType2, setChangeType2] = useState(true);
   const [withoutErrors, setWithoutErrors] = useState<boolean>(false);
@@ -74,7 +92,7 @@ export default function Register() {
               <div className="w-full relative">
                 <input
                   type="text"
-                  placeholder="username"
+                  placeholder={t("username")}
                   style={{
                     backgroundImage: `url("/user-line.svg")`,
                   }}
