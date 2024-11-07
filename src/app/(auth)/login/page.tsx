@@ -17,8 +17,8 @@ import enLogin from "../../../../public/locales/en.json";
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources: {
-      en: { login: enLogin.auth },
-      ka: { login: kaLogin.auth },
+      en: { login: enLogin.login, confirm: enLogin.login.confirm },
+      ka: { login: kaLogin.login, confirm: kaLogin.login.confirm },
     },
     lng: "ka",
     fallbackLng: "en",
@@ -67,7 +67,6 @@ export default function Page() {
       <div>
         <button onClick={() => switchLanguage("en")}>English</button>
         <button onClick={() => switchLanguage("ka")}>ქართული</button>
-        {/* Your existing login form goes here */}
       </div>
       {!suc ? (
         <div className="bg-[#152C5E] flex flex-col items-center gap-[50px] max-w-[570px] mx-[auto] my-[0] py-[50px] px-[24px]">

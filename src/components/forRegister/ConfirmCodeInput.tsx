@@ -4,6 +4,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Congrats from "./Congrats";
 import { ILogin } from "@/types/auth/LoginUser";
 import { signIn } from "next-auth/react";
+import { useTranslation } from "react-i18next";
 
 export default function ConfirmCodeInput({
   email,
@@ -13,6 +14,7 @@ export default function ConfirmCodeInput({
   user: ILogin;
   password: string;
 }) {
+  const { t } = useTranslation("confirm");
   const [value, setValue] = useState("");
   const [clicked, setClicked] = useState<boolean>(false);
   const [eror, setEror] = useState<boolean>(false);
@@ -48,30 +50,10 @@ export default function ConfirmCodeInput({
         setEror(true);
       }
     } else {
-      // const res = await fetch(
-      //   "https://dealin-api-production.up.railway.app/api/dj-rest-auth/login/",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       email: email,
-      //       code: value,
-      //     }),
-      //     cache: "no-cache",
-      //   }
-      // );
-      // console.log(await res.json());
-      // if (res.ok) {
-      //   router.push("user-dashboard");
-      // } else {
-      //   setEror(true);
-      // }
       const res = await signIn("credentials", {
         email: email,
         code: value,
-        // password: password,
+
         redirect: false,
       });
 
@@ -82,7 +64,6 @@ export default function ConfirmCodeInput({
       }
     }
   };
-
   return (
     <>
       {success ? (
@@ -90,7 +71,7 @@ export default function ConfirmCodeInput({
       ) : (
         <div className="bg-[#152C5E] px-[16px] flex flex-col gap-8 items-center w-[400px] h-fit p-5 rounded-xl mt-[50px] relative">
           <h1 className="text-white text-[20px] font-normal text-center">
-            Please enter the code, sent to your email
+            {t("confirm")}
           </h1>
           <input
             type="text"
@@ -105,7 +86,7 @@ export default function ConfirmCodeInput({
             className="bg-white py-[14px] text-[#152C5E] text-[18px] font-medium w-full rounded-lg"
             onClick={inputData}
           >
-            confirm
+            {t("button")}
           </button>
           {eror ? (
             <span className="text-red-500 text-[15px] absolute top-[135px] left-5 des:top-[143px]">

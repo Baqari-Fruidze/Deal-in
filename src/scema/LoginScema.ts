@@ -1,10 +1,9 @@
 import * as yup from "yup";
 
-export const LoginSchema = (t: (key: string) => string) =>
-  yup.object({
-    email: yup.string().required(t("emailRequired")),
-    password: yup.string().required(t("passwordRequired")),
-  });
+export const LoginSchema = yup.object({
+  email: yup.string().required("emailRequired"),
+  password: yup.string().required("passwordRequired"),
+});
 
 // export const LoginSchema = () => {
 //   const { t } = useTranslation();

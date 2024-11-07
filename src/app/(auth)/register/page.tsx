@@ -15,6 +15,8 @@ import SelectMonth from "@/components/forRegister/SelectMonth";
 import SelectYear from "@/components/forRegister/SelectYear";
 import ConfirmCodeInput from "@/components/forRegister/ConfirmCodeInput";
 import Radios from "@/components/forRegister/Radios";
+import karegister from "../../../../public/locales/ka.json";
+import enregister from "../../../../public/locales/en.json";
 
 export default function Register() {
   const [changeType, setChangeType] = useState(true);

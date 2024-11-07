@@ -1,10 +1,27 @@
 {
-  "auth": {
+  "login": {
     "login": "Log In",
     "email": "email",
     "password": "password",
     "noAccount": "Don't have an account?",
     "register": "Register now",
-    "loginButton": "Login"
+    "loginButton": "Login",
+    "confirm": {
+      "confirm": "Please enter the code, sent to your email",
+      "button": "confirm"
+    }
+  },
+  "register": {
+    "username": "username",
+    "day": "dd",
+    "month": "mm",
+    "year": "yy",
+    "email": "email",
+    "password": "password",
+    "Rpassword": "Repeat password",
+    "question": "who are you?",
+    "entrepreneur": "Entrepreneur",
+    "investor": "Investor",
+    "button": "Register"
   }
 }

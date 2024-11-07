@@ -1,10 +1,27 @@
 {
-  "auth": {
+  "login": {
     "login": "შესვლა",
     "email": "ელ.ფოსტა",
     "password": "პაროლი",
     "noAccount": "არ გაქვთ ანგარიში?",
     "register": "რეგისტრაცია",
-    "loginButton": "შესვლა"
+    "loginButton": "შესვლა",
+    "confirm": {
+      "confirm": "შეიყვანეთ იმეილზე მოსული კოდი",
+      "button": "დადასტურება"
+    }
+  },
+  "register": {
+    "username": "ზედმეტ-სახელი",
+    "day": "დღე",
+    "month": "თვე",
+    "year": "წელი",
+    "email": "იმეილი",
+    "password": "პაროლი",
+    "Rpassword": "გაიმეორეთ პაროლი",
+    "question": "ვინ ხართ თქვენ",
+    "entrepreneur": "მეწარმე",
+    "investor": "ინვესტორი",
+    "button": "რეგისტრაცია"
   }
 }
