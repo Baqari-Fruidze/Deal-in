@@ -23,8 +23,14 @@ import i18n from "i18next";
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources: {
-      en: { register: enregister.register },
-      ka: { register: karegister.register },
+      en: {
+        register: enregister.register,
+        confirm: enregister.register.confirm,
+      },
+      ka: {
+        register: karegister.register,
+        confirm: karegister.register.confirm,
+      },
     },
     lng: "ka",
     fallbackLng: "en",
@@ -34,9 +40,9 @@ if (!i18n.isInitialized) {
 
 export default function Register() {
   const { t } = useTranslation("register");
-  const switchLanguage = (lng: "en" | "ka") => {
-    i18n.changeLanguage(lng);
-  };
+  // const switchLanguage = (lng: "en" | "ka") => {
+  //   i18n.changeLanguage(lng);
+  // };
   const [changeType, setChangeType] = useState(true);
   const [changeType2, setChangeType2] = useState(true);
   const [withoutErrors, setWithoutErrors] = useState<boolean>(false);

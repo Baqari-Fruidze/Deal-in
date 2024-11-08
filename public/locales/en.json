@@ -23,6 +23,10 @@
     "entrepreneur": "Entrepreneur",
     "or": "Or",
     "investor": "Investor",
-    "button": "Register"
+    "button": "Register",
+    "confirm": {
+      "confirm": "Please enter the code, sent to your email",
+      "button": "confirm"
+    }
   }
 }
