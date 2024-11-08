@@ -1,6 +1,7 @@
-import { IUser } from "@/app/types/auth/RegisterUser";
+import { IUser } from "@/types/auth/RegisterUser";
 import { useState } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 export default function YearSelect({
   register,
   error,
@@ -9,6 +10,7 @@ export default function YearSelect({
   error: FieldErrors<IUser>;
 }) {
   const [selectedYear, setSelectedYear] = useState("");
+  const { t } = useTranslation("register");
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const years = [];
@@ -26,7 +28,7 @@ export default function YearSelect({
     <div className="relative inline-block w-[100px]">
       {!selectedYear && (
         <span className="absolute left-2 top-2 text-[#B6C8EF] pointer-events-none">
-          yy
+          {t("year")}
         </span>
       )}
 

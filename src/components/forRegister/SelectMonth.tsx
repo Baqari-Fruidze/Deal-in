@@ -1,6 +1,7 @@
-import { IUser } from "@/app/types/auth/RegisterUser";
+import { IUser } from "@/types/auth/RegisterUser";
 import { useState } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 export default function MonthSelect({
   register,
   error,
@@ -9,7 +10,7 @@ export default function MonthSelect({
   error: FieldErrors<IUser>;
 }) {
   const [selectedMonth, setSelectedMonth] = useState("");
-
+  const { t } = useTranslation("register");
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedMonth(event.target.value);
   };
@@ -18,7 +19,7 @@ export default function MonthSelect({
     <div className="relative inline-block w-[100px]">
       {!selectedMonth && (
         <span className="absolute left-2 top-2 text-[#B6C8EF] pointer-events-none">
-          mm
+          {t("month")}
         </span>
       )}
 

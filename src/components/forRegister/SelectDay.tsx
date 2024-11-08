@@ -1,6 +1,7 @@
-import { IUser } from "@/app/types/auth/RegisterUser";
+import { IUser } from "@/types/auth/RegisterUser";
 import { useState } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 export default function DaySelect({
   register,
@@ -10,7 +11,7 @@ export default function DaySelect({
   error: FieldErrors<IUser>;
 }) {
   const [selectedDay, setSelectedDay] = useState("");
-
+  const { t } = useTranslation("register");
   const generateDays = () => {
     const days = [];
     for (let day = 1; day <= 31; day++) {
@@ -27,7 +28,7 @@ export default function DaySelect({
     <div className="relative inline-block w-[100px]">
       {!selectedDay && (
         <span className="absolute left-2 top-2 text-[16px] text-[#B6C8EF] pointer-events-none">
-          dd
+          {t("day")}
         </span>
       )}
 
