@@ -123,7 +123,7 @@ export default function Register() {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="email"
+                  placeholder={t("email")}
                   style={{
                     backgroundImage: `url("/mail-line.svg")`,
                   }}
@@ -149,7 +149,7 @@ export default function Register() {
               <div className="relative w-full">
                 <input
                   type={`${changeType ? "password" : "text"}`}
-                  placeholder="Password"
+                  placeholder={t("password")}
                   style={{
                     backgroundImage: `url("/key-line.svg")`,
                   }}
@@ -188,7 +188,7 @@ export default function Register() {
               <div className="relative w-full">
                 <input
                   type={`${changeType2 ? "password" : "text"}`}
-                  placeholder="Repeat Password"
+                  placeholder={t("Rpassword")}
                   style={{
                     backgroundImage: `url("/key-line.svg")`,
                   }}
@@ -227,12 +227,12 @@ export default function Register() {
 
               <div className="h-[44px] bg-[#C29252] rounded-[5px] flex items-center justify-center">
                 <p className="text-[14px] text-white font-normal des:text-[18px]">
-                  Who Are You?
+                  {t("question")}
                 </p>
               </div>
               <Radios register={register} error={errors} />
               <button className="text-[#192C57] text-[15px] font-[600] bg-[#EAEFFA] rounded-[10px] py-[14px]">
-                Register
+                {t("button")}
               </button>
             </form>
           </div>

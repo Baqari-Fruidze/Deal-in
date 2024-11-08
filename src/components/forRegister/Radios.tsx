@@ -1,29 +1,21 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dolarIcon from "/public/money-dollar-circle-line.svg";
 import enterpreneuerIcon from "/public/briefcase-line.svg";
 import Image from "next/image";
-import { IUser } from "@/app/types/auth/RegisterUser";
-import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { IUser } from "@/types/auth/RegisterUser";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 const CustomRadioButtons = ({
   register,
   error,
-  watch,
 }: {
   register: UseFormRegister<IUser>;
   error: FieldErrors<IUser>;
 }) => {
   const [selectedOption, setSelectedOption] = useState("");
-  //   const foo = () => {
-  //     setSelectedOption("investor");
-  //   };
-  // useEffect(() => {
-  //   const foo = watch("role");
-  //   setSelectedOption("investor");
-  // }, [selectedOption]);
-
-  // const foo = watch("role");
+  const { t } = useTranslation("register");
 
   return (
     <div className="flex  justify-between relative">
@@ -32,13 +24,19 @@ const CustomRadioButtons = ({
           type="radio"
           value="entrepreneur"
           className="opacity-0 absolute"
-          checked={selectedOption === "entrepreneur"}
+          checked={
+            selectedOption === "entrepreneur" || selectedOption === "მეწარმე"
+          }
           {...register("role")}
           onChange={() => setSelectedOption("entrepreneur")}
         />
         <span
           className={`w-5 h-5 rounded-full border-2 border-[#C29252] mr-2 ${
-            selectedOption === "entrepreneur" ? "bg-[#C29252]" : "bg-white"
+            selectedOption === "entrepreneur"
+              ? "bg-[#C29252]"
+              : selectedOption === "მეწარმე"
+              ? "bg-[#C29252]"
+              : "bg-white"
           }`}
         ></span>
         <Image
@@ -54,23 +52,29 @@ const CustomRadioButtons = ({
               : "normal"
           } `}
         >
-          Entrepreneur
+          {t("entrepreneur")}
         </span>
       </label>
-      <span className="text-[12px] text-white font-normal">Or</span>
+      <span className="text-[12px] text-white font-normal">{t("or")}</span>
 
       <label className="flex items-center gap-[12px] cursor-pointer">
         <input
           type="radio"
           value="investor"
           className="opacity-0"
-          checked={selectedOption === "investor"}
+          checked={
+            selectedOption === "investor" || selectedOption === "ინვესტორი"
+          }
           {...register("role")}
           onChange={() => setSelectedOption("investor")}
         />
         <span
           className={`w-5 h-5 rounded-full border-2 border-[#C29252] mr-2 ${
-            selectedOption === "investor" ? "bg-[#C29252]" : "bg-white"
+            selectedOption === "investor"
+              ? "bg-[#C29252]"
+              : selectedOption === "ინვესტორი"
+              ? "bg-[#C29252]"
+              : "bg-white"
           }`}
         ></span>
         <Image src={dolarIcon} width={15} height={15} alt="icon"></Image>
@@ -79,7 +83,7 @@ const CustomRadioButtons = ({
             selectedOption === "investor" ? "decoration-[#C29252]" : "normal"
           } `}
         >
-          Investor
+          {t("investor")}
         </span>
       </label>
       {error.role?.message ? (
